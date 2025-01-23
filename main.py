@@ -7,9 +7,6 @@ import numpy as np
 import gdown
 import os
 
-# Function to download files from Google Drive
-def download_from_google_drive(file_url, output_path):
-    gdown.download(file_url, output_path, quiet=False)
 
 # Load the BioBERT model and tokenizer
 @st.cache_resource
@@ -37,6 +34,12 @@ def generate_single_embedding(text, tokenizer, model):
 # Load the dataset and embeddings
 @st.cache_data
 # Modify the file loading to specify the engine
+# Function to download files from Google Drive
+def download_from_google_drive(url, output):
+    # Download file from Google Drive using gdown
+    gdown.download(url, output, quiet=False)
+
+# Function to load data and embeddings
 def load_data_and_embeddings():
     file_name = "./filtered_combined.xlsx"
     model_file = "./biobert_embeddings.pt"
@@ -44,17 +47,22 @@ def load_data_and_embeddings():
     # Check if the files are available
     if not os.path.exists(file_name) or not os.path.exists(model_file):
         st.write("Downloading required files from Google Drive...")
+        
         # Replace these with your actual Google Drive file URLs
-        file_url = 'https://docs.google.com/spreadsheets/d/1TvKYsQ5ctKylFlV5KOzqdGkdFpFhDAZK/edit?usp=drive_link&ouid=117384216760735877574&rtpof=true&sd=true'
-        model_file_url = 'https://drive.google.com/file/d/1W4UdgxLl7EnjSMvsBUBR4rZtsZQoLjyH/view?usp=drive_link'
+        file_url = 'https://drive.google.com/uc?id=1TvKYsQ5ctKylFlV5KOzqdGkdFpFhDAZK'  # Google Drive file ID for the Excel file
+        model_file_url = 'https://drive.google.com/uc?id=1W4UdgxLl7EnjSMvsBUBR4rZtsZQoLjyH'  # Google Drive file ID for the model file
 
+        # Download both files
         download_from_google_drive(file_url, file_name)
         download_from_google_drive(model_file_url, model_file)
 
     # Load the dataset with the specified engine for Excel files
     df = pd.read_excel(file_name, engine="openpyxl")  # Specifying the engine here
-    df["Combined_Text"] = df["Combined Column"].fillna("")
-    embeddings = torch.load(model_file, map_location=device)
+    df["Combined_Text"] = df["Combined Column"].fillna("")  # Filling NaN values
+
+    # Load the pre-trained embeddings model
+    embeddings = torch.load(model_file, map_location='cpu')  # Change to 'cpu' or 'cuda' based on your setup
+
     return df, embeddings
 
 # Function to get top N similar trials
