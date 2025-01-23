@@ -76,7 +76,7 @@ def load_data_and_embeddings():
 
         download_from_google_drive(file_url, file_name)
         download_from_google_drive(model_file_url, model_file)
-
+        st.write("Files downloaded successfully.")
     # Check if the files are now present
     if os.path.exists(file_name):
         st.write(f"File {file_name} found.")
