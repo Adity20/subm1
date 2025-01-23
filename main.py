@@ -36,6 +36,7 @@ def generate_single_embedding(text, tokenizer, model):
 
 # Load the dataset and embeddings
 @st.cache_data
+# Modify the file loading to specify the engine
 def load_data_and_embeddings():
     file_name = "./filtered_combined.xlsx"
     model_file = "./biobert_embeddings.pt"
@@ -50,7 +51,8 @@ def load_data_and_embeddings():
         download_from_google_drive(file_url, file_name)
         download_from_google_drive(model_file_url, model_file)
 
-    df = pd.read_excel(file_name)
+    # Load the dataset with the specified engine for Excel files
+    df = pd.read_excel(file_name, engine="openpyxl")  # Specifying the engine here
     df["Combined_Text"] = df["Combined Column"].fillna("")
     embeddings = torch.load(model_file, map_location=device)
     return df, embeddings
