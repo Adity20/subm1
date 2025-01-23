@@ -39,7 +39,31 @@ def download_from_google_drive(url, output):
     # Download file from Google Drive using gdown
     gdown.download(url, output, quiet=False)
 
-# Function to load data and embeddings
+# # Function to load data and embeddings
+# def load_data_and_embeddings():
+#     file_name = "./filtered_combined.xlsx"
+#     model_file = "./biobert_embeddings.pt"
+
+#     # Check if the files are available
+#     if not os.path.exists(file_name) or not os.path.exists(model_file):
+#         st.write("Downloading required files from Google Drive...")
+        
+#         # Replace these with your actual Google Drive file URLs
+#         file_url = 'https://drive.google.com/uc?id=1TvKYsQ5ctKylFlV5KOzqdGkdFpFhDAZK'  # Google Drive file ID for the Excel file
+#         model_file_url = 'https://drive.google.com/uc?id=1W4UdgxLl7EnjSMvsBUBR4rZtsZQoLjyH'  # Google Drive file ID for the model file
+
+#         # Download both files
+#         download_from_google_drive(file_url, file_name)
+#         download_from_google_drive(model_file_url, model_file)
+
+#     # Load the dataset with the specified engine for Excel files
+#     df = pd.read_excel(file_name, engine="openpyxl")  # Specifying the engine here
+#     df["Combined_Text"] = df["Combined Column"].fillna("")  # Filling NaN values
+
+#     # Load the pre-trained embeddings model
+#     embeddings = torch.load(model_file, map_location='cpu')  # Change to 'cpu' or 'cuda' based on your setup
+
+#     return df, embeddings
 def load_data_and_embeddings():
     file_name = "./filtered_combined.xlsx"
     model_file = "./biobert_embeddings.pt"
@@ -47,21 +71,36 @@ def load_data_and_embeddings():
     # Check if the files are available
     if not os.path.exists(file_name) or not os.path.exists(model_file):
         st.write("Downloading required files from Google Drive...")
-        
-        # Replace these with your actual Google Drive file URLs
-        file_url = 'https://drive.google.com/uc?id=1TvKYsQ5ctKylFlV5KOzqdGkdFpFhDAZK'  # Google Drive file ID for the Excel file
-        model_file_url = 'https://drive.google.com/uc?id=1W4UdgxLl7EnjSMvsBUBR4rZtsZQoLjyH'  # Google Drive file ID for the model file
+        file_url = 'https://drive.google.com/uc?id=1TvKYsQ5ctKylFlV5KOzqdGkdFpFhDAZK'
+        model_file_url = 'https://drive.google.com/uc?id=1W4UdgxLl7EnjSMvsBUBR4rZtsZQoLjyH'
 
-        # Download both files
         download_from_google_drive(file_url, file_name)
         download_from_google_drive(model_file_url, model_file)
 
-    # Load the dataset with the specified engine for Excel files
-    df = pd.read_excel(file_name, engine="openpyxl")  # Specifying the engine here
-    df["Combined_Text"] = df["Combined Column"].fillna("")  # Filling NaN values
+    # Check if the files are now present
+    if os.path.exists(file_name):
+        st.write(f"File {file_name} found.")
+    else:
+        st.write(f"File {file_name} NOT found.")
+    
+    if os.path.exists(model_file):
+        st.write(f"Model file {model_file} found.")
+    else:
+        st.write(f"Model file {model_file} NOT found.")
 
-    # Load the pre-trained embeddings model
-    embeddings = torch.load(model_file, map_location='cpu')  # Change to 'cpu' or 'cuda' based on your setup
+    # Load the dataset
+    try:
+        df = pd.read_excel(file_name, engine="openpyxl")  # Specifying the engine here
+        st.write("Dataset loaded successfully.")
+    except Exception as e:
+        st.error(f"Error loading Excel file: {e}")
+
+    # Load embeddings
+    try:
+        embeddings = torch.load(model_file, map_location='cpu')  # Change to 'cpu' or 'cuda'
+        st.write("Embeddings loaded successfully.")
+    except Exception as e:
+        st.error(f"Error loading model file: {e}")
 
     return df, embeddings
 
