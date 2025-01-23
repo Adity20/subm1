@@ -1,8 +1,8 @@
-streamlit
-torch
+streamlit==1.38.0
+torch==2.4.1
 transformers==4.46.1
-scikit-learn
+scikit-learn==1.5.1
 numpy
-pandas
-openpyxl
-gdown
+pandas==2.2.2
+openpyxl==3.1.5
+gdown==5.2.0
