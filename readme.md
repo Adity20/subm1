@@ -3,7 +3,7 @@
 ## Files Overview
 1. **merge.py** - Combines datasets into a single file.
 2. **clean.py** - Cleans and preprocesses the data.
-3. **app.py** - Runs the main application.
+3. **app.py** - Runs the main(streamlit) application.
 4. **biobert.py** - Implements BioBERT for feature extraction.
 5. **embedding.py** - Generates and processes embeddings.
 6. **usecase1merged.py** - Merges datasets specific to Use Case 1.
