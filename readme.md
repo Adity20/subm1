@@ -25,7 +25,7 @@ streamlit run app.py
 
 ### Application Screenshot
 ![Application Screenshot](image.png)
-```
+
 
 ### Step 3: Reproducing the Functionality
 The solution uses the following libraries for key functionalities:
