@@ -23,9 +23,12 @@ Use the following command to execute the main application:
 streamlit run app.py
 ```
 
+### Application Screenshot
+![Application Screenshot](image.png)
+```
+
 ### Step 3: Reproducing the Functionality
 The solution uses the following libraries for key functionalities:
-- **BioBERT** for extracting domain-specific features.
 - **NumPy and Pandas** for data preprocessing and manipulation.
 - **scikit-learn** for machine learning pipelines and evaluation.
 - **matplotlib** for visualizing results.
