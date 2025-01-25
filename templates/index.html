@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinical Trials Finder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/921/921342.png" />
+  <style>
+    /* Custom Branding Colors */
+    :root {
+      --primary-color: #4c7d8b; /* Teal Blue */
+      --secondary-color: #f4a261; /* Warm Orange */
+      --accent-color: #264653; /* Deep Teal */
+      --text-color: #2a2a2a; /* Dark Text */
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-white via-gray-100 to-gray-50 min-h-screen flex flex-col justify-center items-center">
+  <header class="text-center mb-10">
+    <h1 class="text-4xl font-extrabold text-[var(--primary-color)]">
+      <span class="text-[var(--secondary-color)]">Clinical</span> Trials Finder
+    </h1>
+    <p class="text-[var(--text-color)] mt-2">Discover similar clinical trials effortlessly using AI-powered tools.</p>
+  </header>
+
+  <div class="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+    <form id="searchForm" action="/find_similar_trials" method="POST" class="space-y-6">
+      <div>
+        <label for="search_type" class="block text-sm font-medium text-[var(--text-color)]">Search Type</label>
+        <select name="search_type" id="search_type" class="mt-1 block w-full rounded-md border-[var(--accent-color)] shadow-sm focus:ring-[var(--secondary-color)] focus:border-[var(--secondary-color)] sm:text-sm">
+          <option value="Text">Text</option>
+          <option value="NCT_ID">NCT ID</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="input_text" class="block text-sm font-medium text-[var(--text-color)]">Input Text or NCT ID</label>
+        <textarea 
+          name="input_text" 
+          id="input_text" 
+          rows="4" 
+          placeholder="Enter your input here..." 
+          class="mt-1 block w-full rounded-md border-[var(--accent-color)] shadow-sm focus:ring-[var(--secondary-color)] focus:border-[var(--secondary-color)] sm:text-sm">
+        </textarea>
+      </div>
+
+      <div>
+        <label for="top_n" class="block text-sm font-medium text-[var(--text-color)]">Number of Similar Trials</label>
+        <input 
+          type="number" 
+          name="top_n" 
+          id="top_n" 
+          min="1" 
+          max="100" 
+          value="10" 
+          class="mt-1 block w-full rounded-md border-[var(--accent-color)] shadow-sm focus:ring-[var(--secondary-color)] focus:border-[var(--secondary-color)] sm:text-sm">
+      </div>
+
+      <button 
+        type="submit" 
+        class="w-full py-2 px-4 bg-[var(--primary-color)] text-white font-semibold rounded-lg shadow-md hover:bg-[var(--secondary-color)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
+        Find Similar Trials
+      </button>
+    </form>
+  </div>
+
+  <footer class="mt-10 text-[var(--text-color)] text-sm">
+    <p>&copy; 2025 Clinical Trials Finder. All rights reserved. | <a href="#" class="text-[var(--secondary-color)] hover:underline">Privacy Policy</a></p>
+  </footer>
+</body>
+</html>
