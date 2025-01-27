@@ -7,7 +7,7 @@
 4. **biobert.py** - Implements BioBERT for feature extraction .
 5. **embedding.py** - Generates and processes embeddings.
 6. **usecase1merged.py** - Merges datasets specific to Use Case 1.
-7. **filteredcombined.py** - Filters and combines datasets for analysis.
+7. **filteredcombined.py** - Filters and combines dataset for analysis.
 
 ## How to Reproduce the Results
 
